@@ -96,6 +96,7 @@ func GenerateSchema() schema.PackageSpec {
 		generateCloudwatch(awsSpec),
 		generateIam(awsSpec),
 		generateS3(awsSpec),
+		generateVpc(awsSpec),
 	)
 }
 

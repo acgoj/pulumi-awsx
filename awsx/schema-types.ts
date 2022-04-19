@@ -9,6 +9,7 @@ export type ResourceConstructor = {
     readonly "awsx:cloudtrail:Trail": ConstructComponent<Trail>;
     readonly "awsx:ecs:FargateService": ConstructComponent<FargateService>;
     readonly "awsx:ecs:FargateTaskDefinition": ConstructComponent<FargateTaskDefinition>;
+    readonly "awsx:vpc:Vpc": ConstructComponent<Vpc>;
 };
 import * as aws from "@pulumi/aws";
 export abstract class Trail extends pulumi.ComponentResource {
@@ -95,6 +96,27 @@ export interface FargateTaskDefinitionArgs {
     readonly tags?: pulumi.Input<Record<string, pulumi.Input<string>>>;
     readonly taskRole?: DefaultRoleWithPolicyInputs;
     readonly volumes?: pulumi.Input<pulumi.Input<aws.types.input.ecs.TaskDefinitionVolume>[]>;
+}
+export abstract class Vpc extends pulumi.ComponentResource {
+    public subnets?: aws.ec2.Subnet[] | pulumi.Output<aws.ec2.Subnet[]>;
+    public vpc?: aws.ec2.Vpc | pulumi.Output<aws.ec2.Vpc>;
+    constructor(name: string, args: pulumi.Inputs, opts: pulumi.ComponentResourceOptions = {}) { super("awsx:vpc:Vpc", name, {}, opts); }
+}
+export interface VpcArgs {
+    readonly assignGeneratedIpv6CidrBlock?: pulumi.Input<boolean>;
+    readonly cidrBlock?: pulumi.Input<string>;
+    readonly enableClassiclink?: pulumi.Input<boolean>;
+    readonly enableClassiclinkDnsSupport?: pulumi.Input<boolean>;
+    readonly enableDnsHostnames?: pulumi.Input<boolean>;
+    readonly enableDnsSupport?: pulumi.Input<boolean>;
+    readonly instanceTenancy?: pulumi.Input<string>;
+    readonly ipv4IpamPoolId?: pulumi.Input<string>;
+    readonly ipv4NetmaskLength?: pulumi.Input<number>;
+    readonly ipv6CidrBlock?: pulumi.Input<string>;
+    readonly ipv6CidrBlockNetworkBorderGroup?: pulumi.Input<string>;
+    readonly ipv6IpamPoolId?: pulumi.Input<string>;
+    readonly ipv6NetmaskLength?: pulumi.Input<number>;
+    readonly tags?: pulumi.Input<Record<string, pulumi.Input<string>>>;
 }
 export interface LogGroupInputs {
     readonly kmsKeyId?: pulumi.Input<string>;

@@ -19,12 +19,15 @@ if typing.TYPE_CHECKING:
     iam = __iam
     import pulumi_awsx.s3 as __s3
     s3 = __s3
+    import pulumi_awsx.vpc as __vpc
+    vpc = __vpc
 else:
     cloudtrail = _utilities.lazy_import('pulumi_awsx.cloudtrail')
     cloudwatch = _utilities.lazy_import('pulumi_awsx.cloudwatch')
     ecs = _utilities.lazy_import('pulumi_awsx.ecs')
     iam = _utilities.lazy_import('pulumi_awsx.iam')
     s3 = _utilities.lazy_import('pulumi_awsx.s3')
+    vpc = _utilities.lazy_import('pulumi_awsx.vpc')
 
 _utilities.register(
     resource_modules="""
@@ -44,6 +47,14 @@ _utilities.register(
   "classes": {
    "awsx:ecs:FargateService": "FargateService",
    "awsx:ecs:FargateTaskDefinition": "FargateTaskDefinition"
+  }
+ },
+ {
+  "pkg": "awsx",
+  "mod": "vpc",
+  "fqn": "pulumi_awsx.vpc",
+  "classes": {
+   "awsx:vpc:Vpc": "Vpc"
   }
  }
 ]

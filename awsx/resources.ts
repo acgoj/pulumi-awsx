@@ -15,6 +15,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import { Trail } from "./cloudtrail";
 import { FargateService, FargateTaskDefinition } from "./ecs";
+import { Vpc } from "./vpc";
 import { ConstructComponent, ResourceConstructor } from "./schema-types";
 
 const resources: ResourceConstructor = {
@@ -22,6 +23,7 @@ const resources: ResourceConstructor = {
     "awsx:ecs:FargateService": (...args) => new FargateService(...args),
     "awsx:ecs:FargateTaskDefinition": (...args) =>
         new FargateTaskDefinition(...args),
+    "awsx:vpc:Vpc": (...args) => new Vpc(...args),
 };
 
 export function construct(
